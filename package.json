@@ -1,7 +1,6 @@
 {
   "name": "weather_app",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +14,10 @@
   "bugs": {
     "url": "https://github.com/MasterSheaf/node_weather_app/issues"
   },
-  "homepage": "https://github.com/MasterSheaf/node_weather_app#readme"
+  "homepage": "https://github.com/MasterSheaf/node_weather_app#readme",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
