@@ -6,7 +6,7 @@ const request = require('request')
 // address = some address you want lat/lon for something like Ohio or Columbus Ohio will work
 // callback = your provided callback method which should take two parameters.
 //        error - undefined or a string with an error message
-//        response - an object with three fields
+//        response - an object with three fields (we destructure into just the body field)
 //                   lat, lon, and place name <- this is the full place name that MapBox uses instead of the search string we provided
 
 // Powell lat = 40.15748885673399, lon = -83.07281424991821
@@ -17,16 +17,16 @@ const geocode = (address, callback) => {
     //console.log("Geocode URL = " + url);
 
 
-    request({ url: url, json: true }, (error, response) => {
+    request({ url: url, json: true }, (error, {body} = {}) => {
         if (error) {
             callback('Unable to connect to location services!', undefined)
-        } else if (response.body.features.length === 0) {
+        } else if (body.features.length === 0) {
             callback('Unable to find location. Try another search.', undefined)
         } else {
             callback(undefined, {
-                latitude: response.body.features[0].center[1],
-                longitude: response.body.features[0].center[0],
-                location: response.body.features[0].place_name
+                latitude: body.features[0].center[1],
+                longitude: body.features[0].center[0],
+                location: body.features[0].place_name
             })
         }
     })

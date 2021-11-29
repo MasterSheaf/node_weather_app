@@ -28,34 +28,34 @@ const weather = (lat, lon, callback) => {
 
     //var url = 'http://api.weatherstack.com/current?access_key=6ebcb1a94a8e01ad5aed80366d95ce80&query=40.7831,-73.9712&units=f'
 
-    request({ url: url, json: true }, (error, response) => {
+    request({ url: url, json: true }, (error, {body} = {}) => {
 
         //console.log("Error: ", error);
 
-        //console.log(response.body);
+        //console.log(body);
         
         if (error) {
 
             callback('Unable to connect to weather service', undefined)
 
-        } else if (response.body.success === false) {
+        } else if (body.success === false) {
             
             //console.log("Error Reported from API:");
-            //console.log(response.body.error);
-            callback("Error reported from API: " + response.body.error.code + ". " + response.body.error.info, undefined);
+            //console.log(body.error);
+            callback("Error reported from API: " + body.error.code + ". " + body.error.info, undefined);
         
         } else {
 
-            if (response.body.current.weather_descriptions.length <=0) {
+            if (body.current.weather_descriptions.length <=0) {
                 callback(undefined, {
-                    temperature: response.body.current.temperature,
+                    temperature: body.current.temperature,
                     description: 'No Decsription Provided'
                 })
             }
             else {
                 callback(undefined, {
-                    temperature: response.body.current.temperature,
-                    description: response.body.current.weather_descriptions[0]
+                    temperature: body.current.temperature,
+                    description: body.current.weather_descriptions[0]
                 })
             }
         }

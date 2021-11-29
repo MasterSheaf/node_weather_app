@@ -13,7 +13,11 @@ if (process.argv.length < 3) {
 }
 
 // geocode an address
-geocode(process.argv[2], (error, geoData) => {
+// Note that when destructuring we need to provide a default parameter for the
+// second parameter of an empty object if error is defined in our callback
+// code we usually set the second parameter to undefined which causes the 
+// destructuring to fail, so we add the default
+geocode(process.argv[2], (error, {latitude, longitude, location} = {}) => {
     if (error) {
         console.log("Geolocation Query Error ", error);
     } else {
@@ -23,7 +27,7 @@ geocode(process.argv[2], (error, geoData) => {
         //console.log(`lon: ${geoData.longitude}`);
 
         // now we can get the weather
-        weather(geoData.latitude, geoData.longitude, (error, weatherData) => {
+        weather(latitude, longitude, (error, {temperature, description} = {}) => {
         
             if (error) {
 
@@ -31,10 +35,9 @@ geocode(process.argv[2], (error, geoData) => {
 
             } else {
 
-                console.log(`In ${geoData.location} it is ${weatherData.temperature} deg and ${weatherData.description}`);
+                console.log(`In ${location} it is ${temperature} deg and ${description}`);
 
             }
-        
         });
 
     }
