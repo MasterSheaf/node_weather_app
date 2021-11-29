@@ -28,7 +28,7 @@ const weather = (lat, lon, callback) => {
 
     //var url = 'http://api.weatherstack.com/current?access_key=6ebcb1a94a8e01ad5aed80366d95ce80&query=40.7831,-73.9712&units=f'
 
-    request({ url: url, json: true }, (error, {body} = {}) => {
+    request({ url, json: true }, (error, {body} = {}) => {
 
         //console.log("Error: ", error);
 
